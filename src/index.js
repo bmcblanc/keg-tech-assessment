@@ -18,7 +18,7 @@ const onGetGoatFacts = async () => {
 ;(async () => {
   // Select get-goat-facts button Element and attach
   // a click event to it to call onGetGoatFacts
-  document.querySelector('#get-goat-facts').addEventListener('click', async () => {
+  document.querySelector('button#get-goat-facts').addEventListener('click', async () => {
     await onGetGoatFacts();
   });
 })()
