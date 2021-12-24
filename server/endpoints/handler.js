@@ -35,7 +35,7 @@ const handleApiResponse = (req, res, data, status) => {
   logResponse(req, res)
 
   return res.json({
-    data,
+    content: data,
     status: res.statusCode,
   })
 }
