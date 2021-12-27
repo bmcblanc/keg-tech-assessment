@@ -9,7 +9,7 @@ const {api: apiConfig} = require('../configs/server.config')
 export const getGoatFacts = async () => {
   return axios.get(`${apiConfig.baseUrl}/goats`)
       .then(response => {
-        return response.data.content
+        return response.data.data
       })
       .catch(error => {
         console.log(error);
