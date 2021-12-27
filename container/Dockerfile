@@ -4,6 +4,6 @@ COPY package.json yarn.lock ./
 RUN yarn install
 COPY . ./
 
-CMD [ "node", "server/index.js" ]
+CMD [ "yarn", "dev" ]
 
 EXPOSE 3000 5005
