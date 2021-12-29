@@ -1,6 +1,6 @@
 const { doIt } = require('@keg-hub/jsutils')
 // eslint-disable-next-line no-unused-vars
-const factList = null
+const factList = (process.env.TEST_ERROR || false) ? null : require('../goatFacts.json')
 
 const getRandomFact = () => {
   // return a randomly selected item of the goat facts array

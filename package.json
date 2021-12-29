@@ -7,6 +7,8 @@
   "license": "MIT",
   "scripts": {
     "doc:build": "docker build --file ./container/Dockerfile --tag tech:assessment --force-rm .",
+    "doc:full": "bash container/run_full_stack.sh",
+    "doc:mongo": "docker run -it --rm -p 27017:27017 --name mongo -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=secret -e MONGO_INITDB_DATABASE=goat_db --volume \"${PWD}/container/init_goat_db.js:/docker-entrypoint-initdb.d/init_goat_db.js\" mongo",
     "doc:run": "docker run -it --rm --env-file ./container/.env -p 3000:3000 -p 5005:5005 tech:assessment",
     "doc:test": "node scripts/docTest.js && jest",
     "api": "nodemon --watch ./server --watch ./configs --exec 'node ./server/index.js'",
@@ -16,7 +18,7 @@
     "pretty": "./node_modules/.bin/prettier --config ./configs/prettier.config.js --ignore-path .eslintignore --write '**/*.{js,jsx}'",
     "start": "run-p web api",
     "web": "webpack serve --config configs/webpack.js --progress --content-base src/",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "devDependencies": {
     "@babel/core": "7.12.10",
@@ -51,6 +53,7 @@
     "html-webpack-plugin": "5.0.0-alpha.6",
     "jest": "^27.4.5",
     "mini-css-extract-plugin": "1.3.3",
+    "mongodb": "^4.2.2",
     "nodemon": "2.0.4",
     "npm-run-all": "4.1.5",
     "optimize-css-assets-webpack-plugin": "5.0.4",

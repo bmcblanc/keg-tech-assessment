@@ -1,14 +1,14 @@
 const { doIt } = require('@keg-hub/jsutils')
-// eslint-disable-next-line no-unused-vars
-const factList = require('./goatFacts.json')
+const { getGoatFactsFromDb } = require('../db/mongodb')
 
-const getRandomFact = () => {
+const getRandomFact = (factList) => {
   // return a randomly selected item of the goat facts array
   return factList[Math.floor(Math.random() * factList.length)]
 }
 
-const goatFacts = async () => {
-  return doIt(20, global, () => getRandomFact())
+const goatFacts = () => {
+  return getGoatFactsFromDb()
+    .then(data => doIt(20, global, () => getRandomFact(data)).map(facts => facts.fact))
 }
 
 module.exports = {

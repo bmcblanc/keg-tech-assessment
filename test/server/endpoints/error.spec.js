@@ -1,13 +1,15 @@
-const axios = require('axios')
-const { api: apiConfig } = require('../../../configs/server.config')
-const { initApi } = require('../../../server/server')
+import axios from 'axios'
+import { api as apiConfig } from '../../../configs/server.config'
+import { initApi } from '../../../server/server'
 
+jest.mock('../../../server/db/mongodb.js')
 jest.mock('../../../server/libs/goatsLib.js')
 
-describe("testing-goat-facts-api", () => {
+describe("testing-goat-facts-api-error", () => {
 
     let appServer
     beforeAll(() => {
+        process.env['TEST_ERROR'] = true
         appServer = initApi()
     })
     
