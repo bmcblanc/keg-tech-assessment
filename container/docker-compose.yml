@@ -20,7 +20,6 @@ services:
       - MONGO_INITDB_DATABASE=goat_db
     volumes:
       - ./init_goat_db.js:/docker-entrypoint-initdb.d/init_goat_db.js
-    restart: unless-stopped
     ports:
       - "27017:27017"
     networks:

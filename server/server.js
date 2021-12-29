@@ -5,7 +5,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const apiEndpoints = require('./endpoints')
 const { api: config } = require('../configs/server.config')
-const dbo = require('./db/mongodb');
+const dbo = require('./db/mongodb')
 const { noOpObj, noPropArr, eitherArr } = require('@keg-hub/jsutils')
 
 const rootPath = path.join(path.normalize(__dirname), '..')
@@ -53,10 +53,10 @@ const setupServer = (app, config) => {
   app.use(express.static(rootPath))
 }
 
-const setupMongoDb = (app) => {
-  dbo.connectToServer(function (err) {
+const setupMongoDb = app => {
+  dbo.connectToServer(err => {
     if (err) {
-      console.error(err)
+      throw err
     }
   })
 }
@@ -74,6 +74,7 @@ const initApi = async () => {
   setupCors(app, config)
   apiEndpoints(app, config)
 
+  // Init connection to DB
   setupMongoDb(app)
 
   const server = app.listen(config.port, config.host, () =>

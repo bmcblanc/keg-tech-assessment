@@ -5,14 +5,25 @@
 export const filterGoatFacts = facts => {
   const cleanUpSpecialCharsRegex = /(^[',.:;?!()]+|[',.:;?!()]+$)/g
   const singleWord = document.querySelector('#single-word-filter').value.trim()
-  const wordIndex = parseInt(document.querySelector('#word-index-filter').value.trim(), 10)
-  
+  const wordIndex = parseInt(
+    document.querySelector('#word-index-filter').value.trim(),
+    10
+  )
+
   if (validateFilters(singleWord, wordIndex)) {
     return facts.filter(fact => {
       // Split sentence and clean up words that starts
       // or ends with some punctuations/special chars
-      const factItems = fact.toLowerCase().split(/\s+/).map(item => item.replace(cleanUpSpecialCharsRegex, ''))
-      return factItems.indexOf(singleWord.toLowerCase().replace(cleanUpSpecialCharsRegex, '')) == wordIndex - 1
+      const factItems = fact
+        .toLowerCase()
+        .split(/\s+/)
+        .map(item => item.replace(cleanUpSpecialCharsRegex, ''))
+      return (
+        factItems.indexOf(
+          singleWord.toLowerCase().replace(cleanUpSpecialCharsRegex, '')
+        ) ==
+        wordIndex - 1
+      )
     })
   }
 

@@ -16,25 +16,35 @@ const onGetGoatFacts = async () => {
 }
 
 ;(async () => {
+  const getGoatFactsButton = document.querySelector('#get-goat-facts')
   const form = document.querySelector('#goat-facts-filters-form')
   const singleWordFilter = document.querySelector('#single-word-filter')
   const wordIndexFilter = document.querySelector('#word-index-filter')
 
   // Select get-goat-facts button Element and attach
   // a click event to it to call onGetGoatFacts
-  document.querySelector('#get-goat-facts').addEventListener('click', async () => {
+  getGoatFactsButton.addEventListener('click', async () => {
     await onGetGoatFacts()
   })
 
   // Add event listener on 'keyup' for filters inputs
   // to trigger client-side validation
   document.querySelectorAll('.goat-facts-input-filter').forEach(input => {
-    input.addEventListener('keyup', () => {
+    input.addEventListener('keyup', (event) => {
+      // Trigger filters form validation
       document.querySelector('#goat-facts-filters-submit').click()
 
-      // reset validation state when both filters are fully emptied, 
-      if (singleWordFilter.value.length <= 0 && wordIndexFilter.value.length <= 0) {
+      // reset validation state when both filters are fully emptied,
+      if (
+        singleWordFilter.value.length <= 0 &&
+        wordIndexFilter.value.length <= 0
+      ) {
         form.classList.remove('was-validated')
+      }
+
+      // Trigger getGoatFacts button when 'Enter' is pressed
+      if (event.keyCode == 13) {
+        getGoatFactsButton.click()
       }
     })
   })
